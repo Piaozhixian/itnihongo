@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {collection, getFirestore, getDocs, limit, orderBy, query, where} from "firebase/firestore";
-import {Box, Button} from '@mui/material';
+import {Box, Button, Container} from '@mui/material';
 import {useState} from 'react';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -45,19 +45,21 @@ function Home() {
   getData()
 
   return (
-    <>
+    <Container>
       <Box>
         {questionWord}
       </Box>
       <Box>
         {
           selections.map((selection,index)=>{
-            return (<Button key={`selection-${index}`}>{selection}</Button>)
+            return <Button variant='outlined' key={`selection-${index}`}>{selection}</Button>
           })
         }
-        <Button>{answer}</Button>
+        <div>
+          <Button variant='outlined' key={`selection-answer`}>{answer}</Button>
+        </div>
       </Box>
-    </>
+    </Container>
   )
 }
 
