@@ -52,7 +52,7 @@ function Home() {
       <Box>
         {
           selections.map((selection,index)=>{
-            return <Button variant='outlined' key={`selection-${index}`}>{selection}</Button>
+            return
           })
         }
         <div>
