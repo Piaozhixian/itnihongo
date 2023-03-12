@@ -1,14 +1,21 @@
-import {Button} from '@mui/material';
+import { Button } from "@mui/material";
 
 type SelectionButtonProps = {
-  text: string
-}
+  /**
+   * 按钮中显示的文字
+   */
+  text: string;
+};
 
 /**
  * 选项按钮组件
- * @param text 按钮中显示的文字
+ * @param SelectionButtonProps
  */
-function SelectionButton({text}: SelectionButtonProps) {
-  return <Button variant='outlined' style={{fontFamily: 'sans-serif'}}>{text}</Button>
+function SelectionButton({ text }: SelectionButtonProps) {
+  return (
+    <Button variant="outlined" style={{ fontFamily: "sans-serif" }}>
+      {text}
+    </Button>
+  );
 }
 export default SelectionButton;
