@@ -9,6 +9,6 @@ type SelectionButtonProps = {
  * @param text 按钮中显示的文字
  */
 function SelectionButton({text}: SelectionButtonProps) {
-  return <Button variant='outlined'>{text}</Button>
+  return <Button variant='outlined' style={{fontFamily: 'sans-serif'}}>{text}</Button>
 }
 export default SelectionButton;
