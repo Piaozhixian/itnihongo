@@ -42,22 +42,12 @@ function Home() {
     })
     setSelections(arr)
   }
-  getData()
+  // getData()
 
   return (
     <Container>
       <Box>
         {questionWord}
-      </Box>
-      <Box>
-        {
-          selections.map((selection,index)=>{
-            return
-          })
-        }
-        <div>
-          <Button variant='outlined' key={`selection-answer`}>{answer}</Button>
-        </div>
       </Box>
     </Container>
   )
