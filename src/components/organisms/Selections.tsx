@@ -18,13 +18,14 @@ type SelectionsProps = {
  * @return 被打乱的选项数组
  */
 function ShuffleSelections(selections: string[]) {
+  const originSelections = [...selections];
   const shuffledSelections = [];
 
-  while (selections.length > 0) {
-    const k = Math.floor(Math.random() * selections.length);
+  while (originSelections.length > 0) {
+    const k = Math.floor(Math.random() * originSelections.length);
 
-    shuffledSelections.push(selections[k]);
-    selections.splice(k, 1);
+    shuffledSelections.push(originSelections[k]);
+    originSelections.splice(k, 1);
   }
 
   return shuffledSelections;
