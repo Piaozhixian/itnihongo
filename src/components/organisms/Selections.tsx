@@ -38,7 +38,17 @@ function ShuffleSelections(selections: string[]) {
 function Selections({ selections, answer }: SelectionsProps) {
   const shuffledSelections = ShuffleSelections(selections);
   return (
-    <Box sx={{ width: 200, display: "flex", flexDirection: "column", gap: 1 }}>
+    <Box
+      sx={{
+        width: 400,
+        display: "flex",
+        flexDirection: "column",
+        background: "aliceblue",
+        padding: "16px 80px",
+        gap: 1,
+        boxSizing: "border-box",
+      }}
+    >
       {shuffledSelections.map((selection, index) => {
         return (
           <SelectionButton

@@ -20,7 +20,7 @@ function SelectionButton({ text, onClick }: SelectionButtonProps) {
   return (
     <Button
       variant="outlined"
-      style={{ fontFamily: "sans-serif" }}
+      style={{ fontFamily: "sans-serif", background: "white" }}
       onClick={onClick}
     >
       {text}
