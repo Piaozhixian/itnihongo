@@ -9,9 +9,21 @@ type SelectionPageProps = {
 };
 function SelectionPage({ quizTitle, selections, answer }: SelectionPageProps) {
   return (
-    <Grid container direction="column" alignItems="center">
-      <QuizTitle text={quizTitle} />
-      <Selections selections={selections} answer={answer} />
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      width="600px"
+      height="500px"
+      display="flex"
+      flexDirection="column"
+    >
+      <Grid item width="100%" height="40%">
+        <QuizTitle text={quizTitle} />
+      </Grid>
+      <Grid item width="100%" height="60%">
+        <Selections selections={selections} answer={answer} />
+      </Grid>
     </Grid>
   );
 }

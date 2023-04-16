@@ -1,56 +1,26 @@
-import { initializeApp } from "firebase/app";
-import {collection, getFirestore, getDocs, limit, orderBy, query, where} from "firebase/firestore";
-import {Box, Button, Container} from '@mui/material';
-import {useState} from 'react';
+import { Grid } from "@mui/material";
+import QuizTitle from "@/components/atoms/QuizTitle";
+import Selections from "@/components/organisms/Selections";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
-};
-
-function Home() {
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app)
-
-  const [questionWord, setQuestionWord] = useState()
-  const [answer, setAnswer] = useState()
-  const [selections, setSelections] = useState<string[]>([])
-  async function getData () {
-    const wordsRef = collection(db, 'words')
-    const q = query(wordsRef, orderBy('ja'),limit(1))
-    const querySnapshot = await getDocs(q)
-    querySnapshot.forEach((doc) => {
-      setQuestionWord(doc.data().ja)
-      setAnswer(doc.data().cn)
-    })
-    const wrongSelectionsQuery = query(wordsRef,where("ja", "!=", "テスト" ),limit(3))
-    const wrongSelectionsQuerySnapshot = await getDocs(wrongSelectionsQuery)
-    const arr: string[] = []
-    wrongSelectionsQuerySnapshot.forEach((doc) => {
-      arr.push(doc.data().cn)
-    })
-    setSelections(arr)
-  }
-  // getData()
-
+function IndexPage() {
   return (
-    <Container>
-      <Box>
-        {questionWord}
-      </Box>
-    </Container>
-  )
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      width="600px"
+      height="500px"
+      display="flex"
+      flexDirection="column"
+    >
+      <Grid item width="100%" height="40%">
+        <QuizTitle text="IT日语测试" />
+      </Grid>
+      <Grid item width="100%" height="60%">
+        <Selections selections={["开始测试"]} answer={"开始测试"} />
+      </Grid>
+    </Grid>
+  );
 }
 
-export default Home;
+export default IndexPage;

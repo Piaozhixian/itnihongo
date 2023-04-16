@@ -18,8 +18,8 @@ function QuizTitle({ text }: QuizTitleProps) {
       container
       alignItems="center"
       justifyContent="center"
-      width="400px"
-      height="180px"
+      width="100%"
+      height="100%"
       className={styles.title}
     >
       <Typography variant="h3">{text}</Typography>
