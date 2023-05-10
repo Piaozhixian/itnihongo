@@ -9,4 +9,7 @@ yarn dev
 
 # storybook http://localhost:6006/
 yarn storybook
+
+# firebase emulator http://127.0.0.1:5002/
+yarn fb-emulator
 ```
