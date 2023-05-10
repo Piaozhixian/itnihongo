@@ -14,7 +14,23 @@ export type QuizPageProps = {
   qid?: number;
 };
 
-export default function Qid({ quizList, qid }: QuizPageProps) {
+export default function Qid({
+  quizList = [
+    {
+      id: 1,
+      question: "Question 1",
+      selections: ["A", "B", "C", "D"],
+      answer: "A",
+    },
+    {
+      id: 2,
+      question: "Question 2",
+      selections: ["A", "B", "C", "D"],
+      answer: "B",
+    },
+  ],
+  qid = 0,
+}: QuizPageProps) {
   const currentQuiz = quizList[qid || 0];
   return (
     <Grid container alignItems="center" display="flex" flexDirection="column">

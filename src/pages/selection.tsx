@@ -7,7 +7,11 @@ type SelectionPageProps = {
   selections: string[];
   answer: string;
 };
-function SelectionPage({ quizTitle, selections, answer }: SelectionPageProps) {
+function SelectionPage({
+  quizTitle = "quiz",
+  selections = ["A", "B", "C", "D"],
+  answer = "A",
+}: SelectionPageProps) {
   return (
     <Grid
       container
