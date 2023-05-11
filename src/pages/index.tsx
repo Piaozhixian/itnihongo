@@ -1,4 +1,5 @@
 import { Button, Grid } from "@mui/material";
+import Link from "next/link";
 
 function IndexPage() {
   return (
@@ -13,15 +14,17 @@ function IndexPage() {
       justifyContent="center"
       style={{ background: "aliceblue" }}
     >
-      <Button
-        variant="outlined"
-        style={{ fontFamily: "sans-serif", background: "white" }}
-        onClick={() => {
-          alert("start");
-        }}
-      >
-        开始测试
-      </Button>
+      <Link href="/quiz/0">
+        <Button
+          variant="outlined"
+          style={{ fontFamily: "sans-serif", background: "white" }}
+          onClick={() => {
+            alert("start");
+          }}
+        >
+          开始测试
+        </Button>
+      </Link>
     </Grid>
   );
 }

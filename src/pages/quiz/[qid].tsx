@@ -1,3 +1,4 @@
+import { GetStaticPaths, GetStaticProps } from "next";
 import { Grid } from "@mui/material";
 import { Quiz } from "@/types/Quiz";
 import QuizTitle from "@/components/atoms/QuizTitle";
@@ -11,27 +12,14 @@ export type QuizPageProps = {
   /**
    * 当前问题的索引
    */
-  qid?: number;
+  qid: string;
+  /**
+   * 当前问题的信息
+   */
+  currentQuiz: Quiz;
 };
 
-export default function Qid({
-  quizList = [
-    {
-      id: 1,
-      question: "Question 1",
-      selections: ["A", "B", "C", "D"],
-      answer: "A",
-    },
-    {
-      id: 2,
-      question: "Question 2",
-      selections: ["A", "B", "C", "D"],
-      answer: "B",
-    },
-  ],
-  qid = 0,
-}: QuizPageProps) {
-  const currentQuiz = quizList[qid || 0];
+export default function Qid({ currentQuiz }: QuizPageProps) {
   return (
     <Grid container alignItems="center" display="flex" flexDirection="column">
       <Grid item>
@@ -46,3 +34,40 @@ export default function Qid({
     </Grid>
   );
 }
+
+// 生成动态路由
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [{ params: { qid: "0" } }, { params: { qid: "1" } }],
+    fallback: false,
+  };
+};
+
+// 获取动态路由的数据
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const quizList = [
+    {
+      id: 1,
+      question: "Question 1",
+      selections: ["A", "B", "C", "D"],
+      answer: "A",
+    },
+    {
+      id: 2,
+      question: "Question 2",
+      selections: ["A", "B", "C", "D"],
+      answer: "B",
+    },
+  ];
+
+  const qid = Number(params?.qid) || 0;
+  const currentQuiz = quizList[qid] || quizList[0];
+
+  return {
+    props: {
+      quizList,
+      qid,
+      currentQuiz,
+    },
+  };
+};
