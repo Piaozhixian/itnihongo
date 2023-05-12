@@ -14,13 +14,10 @@ function IndexPage() {
       justifyContent="center"
       style={{ background: "aliceblue" }}
     >
-      <Link href="/quiz/0">
+      <Link href="/quiz">
         <Button
           variant="outlined"
           style={{ fontFamily: "sans-serif", background: "white" }}
-          onClick={() => {
-            alert("start");
-          }}
         >
           开始测试
         </Button>
