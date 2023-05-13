@@ -10,7 +10,7 @@
     "deploy": "next build && next export && firebase deploy --only functions,hosting",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "fb-emulator": "next build && next export && firebase emulators:start",
+    "fb-emulator": "next build && next export && firebase emulators:start --import data --export-on-exit",
     "export": "next build && next export"
   },
   "dependencies": {
