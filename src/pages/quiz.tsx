@@ -1,4 +1,4 @@
-import { Grid, CircularProgress } from "@mui/material";
+import { Grid, CircularProgress, Button } from "@mui/material";
 import firebaseApp from "@/firebaseApp";
 import { getFirestore, DocumentData } from "@firebase/firestore";
 import {
@@ -18,6 +18,7 @@ export default function Quiz() {
   const { hostname } = new URL(asPath, "http://localhost");
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState([] as DocumentData[]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -37,15 +38,24 @@ export default function Quiz() {
     fetchData();
   }, [hostname]);
 
+  const handleNextQuestionClick = () => {
+    setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
+  };
+
   return (
     <Grid>
       {loading ? (
         <CircularProgress />
       ) : (
-        questions.map((question) => (
-          // your code to display each question goes here
-          <div key={question.id}>{question.id}</div>
-        ))
+        <>
+          <div>
+            {questions[currentQuestionIndex].jp}：{" "}
+            {questions[currentQuestionIndex].cn}
+          </div>
+          {currentQuestionIndex < questions.length - 1 ? (
+            <Button onClick={handleNextQuestionClick}>下一题</Button>
+          ) : null}
+        </>
       )}
     </Grid>
   );
