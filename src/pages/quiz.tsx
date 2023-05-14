@@ -8,10 +8,18 @@ import {
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import QuizTitle from "@/components/atoms/QuizTitle";
+import Selections from "@/components/organisms/Selections";
+import makeOptions from "@/utils/makeOptions";
 
 const app = firebaseApp;
 const db = getFirestore(app);
 
+/**
+ * 问题页面
+ * - 从数据库获取问题并生成数组
+ * - 显示每个问题并生成每个问题的选项
+ */
 export default function Quiz() {
   const router = useRouter();
   const { asPath } = router;
@@ -19,6 +27,9 @@ export default function Quiz() {
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState([] as DocumentData[]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionOptions, setCurrentQuestionOptions] = useState<
+    string[]
+  >([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -40,6 +51,9 @@ export default function Quiz() {
 
   const handleNextQuestionClick = () => {
     setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
+    setCurrentQuestionOptions(
+      makeOptions(questions[currentQuestionIndex + 1].cn)
+    );
   };
 
   return (
@@ -48,13 +62,18 @@ export default function Quiz() {
         <CircularProgress />
       ) : (
         <>
-          <div>
-            {questions[currentQuestionIndex].jp}：{" "}
-            {questions[currentQuestionIndex].cn}
-          </div>
-          {currentQuestionIndex < questions.length - 1 ? (
+          <QuizTitle text={questions[currentQuestionIndex].jp} />
+          <>
+            <Selections
+              selections={
+                currentQuestionOptions.length
+                  ? currentQuestionOptions
+                  : makeOptions(questions[currentQuestionIndex].cn)
+              }
+              answer={questions[currentQuestionIndex].cn}
+            />
             <Button onClick={handleNextQuestionClick}>下一题</Button>
-          ) : null}
+          </>
         </>
       )}
     </Grid>
