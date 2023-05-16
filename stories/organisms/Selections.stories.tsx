@@ -17,4 +17,7 @@ export const Example = Template.bind({});
 Example.args = {
   selections: ["选项1", "选项2", "选项3", "选项4"],
   answer: "选项1",
+  onSelectionClick: () => {
+    alert("test");
+  },
 };

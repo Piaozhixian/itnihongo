@@ -71,8 +71,8 @@ export default function Quiz() {
                   : makeOptions(questions[currentQuestionIndex].cn)
               }
               answer={questions[currentQuestionIndex].cn}
+              onSelectionClick={handleNextQuestionClick}
             />
-            <Button onClick={handleNextQuestionClick}>下一题</Button>
           </>
         </>
       )}

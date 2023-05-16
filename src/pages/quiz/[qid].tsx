@@ -29,6 +29,9 @@ export default function Qid({ currentQuiz }: QuizPageProps) {
         <Selections
           selections={currentQuiz.selections}
           answer={currentQuiz.answer}
+          onSelectionClick={() => {
+            alert("test");
+          }}
         />
       </Grid>
     </Grid>
