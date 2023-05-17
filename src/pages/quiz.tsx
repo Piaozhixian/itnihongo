@@ -30,6 +30,7 @@ export default function Quiz() {
   const [currentQuestionOptions, setCurrentQuestionOptions] = useState<
     string[]
   >([]);
+  const [showResult, setShowResult] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -50,30 +51,34 @@ export default function Quiz() {
   }, [hostname]);
 
   const handleNextQuestionClick = () => {
-    setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
-    setCurrentQuestionOptions(
-      makeOptions(questions[currentQuestionIndex + 1].cn)
-    );
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
+      setCurrentQuestionOptions(
+        makeOptions(questions[currentQuestionIndex + 1].cn)
+      );
+    } else {
+      setShowResult(true);
+    }
   };
 
   return (
     <Grid>
       {loading ? (
         <CircularProgress />
+      ) : showResult ? (
+        <>答题结果</>
       ) : (
         <>
           <QuizTitle text={questions[currentQuestionIndex].jp} />
-          <>
-            <Selections
-              selections={
-                currentQuestionOptions.length
-                  ? currentQuestionOptions
-                  : makeOptions(questions[currentQuestionIndex].cn)
-              }
-              answer={questions[currentQuestionIndex].cn}
-              onSelectionClick={handleNextQuestionClick}
-            />
-          </>
+          <Selections
+            selections={
+              currentQuestionOptions.length
+                ? currentQuestionOptions
+                : makeOptions(questions[currentQuestionIndex].cn)
+            }
+            answer={questions[currentQuestionIndex].cn}
+            onSelectionClick={handleNextQuestionClick}
+          />
         </>
       )}
     </Grid>
