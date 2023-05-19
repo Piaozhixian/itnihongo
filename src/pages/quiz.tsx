@@ -1,4 +1,13 @@
-import { Grid, CircularProgress, Button } from "@mui/material";
+import {
+  Grid,
+  CircularProgress,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import firebaseApp from "@/firebaseApp";
 import { getFirestore, DocumentData } from "@firebase/firestore";
 import {
@@ -31,6 +40,7 @@ export default function Quiz() {
     string[]
   >([]);
   const [showResult, setShowResult] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -50,7 +60,9 @@ export default function Quiz() {
     fetchData();
   }, [hostname]);
 
-  const handleNextQuestionClick = () => {
+  const handleOptionClick = (option: string) => {
+    setSelectedOptions([...selectedOptions, option]);
+
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
       setCurrentQuestionOptions(
@@ -66,7 +78,26 @@ export default function Quiz() {
       {loading ? (
         <CircularProgress />
       ) : showResult ? (
-        <>答题结果</>
+        <>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>题号</TableCell>
+                  <TableCell>你的选项</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {selectedOptions.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{item}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
       ) : (
         <>
           <QuizTitle text={questions[currentQuestionIndex].jp} />
@@ -77,7 +108,9 @@ export default function Quiz() {
                 : makeOptions(questions[currentQuestionIndex].cn)
             }
             answer={questions[currentQuestionIndex].cn}
-            onSelectionClick={handleNextQuestionClick}
+            onSelectionClick={() =>
+              handleOptionClick(questions[currentQuestionIndex].cn)
+            }
           />
         </>
       )}
