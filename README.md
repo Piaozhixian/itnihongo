@@ -11,5 +11,6 @@ yarn dev
 yarn storybook
 
 # firebase emulator http://127.0.0.1:5002/
+# emulator overview http://localhost:4000/
 yarn fb-emulator
 ```
