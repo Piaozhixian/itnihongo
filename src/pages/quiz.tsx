@@ -83,15 +83,17 @@ export default function Quiz() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>题号</TableCell>
+                  <TableCell>问题</TableCell>
                   <TableCell>你的选项</TableCell>
+                  <TableCell>正确选项</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {selectedOptions.map((item, index) => (
                   <TableRow key={index}>
-                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{questions[index].jp}</TableCell>
                     <TableCell>{item}</TableCell>
+                    <TableCell>{questions[index].cn}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -108,9 +110,9 @@ export default function Quiz() {
                 : makeOptions(questions[currentQuestionIndex].cn)
             }
             answer={questions[currentQuestionIndex].cn}
-            onSelectionClick={() =>
-              handleOptionClick(questions[currentQuestionIndex].cn)
-            }
+            onSelectionClick={(e) => {
+              handleOptionClick(e.currentTarget.innerText);
+            }}
           />
         </>
       )}
