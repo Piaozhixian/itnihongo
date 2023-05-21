@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import QuizTitle from "@/components/atoms/QuizTitle";
 import Selections from "@/components/organisms/Selections";
 import makeOptions from "@/utils/makeOptions";
+import { Clear, PanoramaFishEye } from "@mui/icons-material";
 
 const app = firebaseApp;
 const db = getFirestore(app);
@@ -83,19 +84,37 @@ export default function Quiz() {
             <Table>
               <TableHead>
                 <TableRow>
+                  <TableCell></TableCell>
                   <TableCell>问题</TableCell>
                   <TableCell>你的选项</TableCell>
                   <TableCell>正确选项</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {selectedOptions.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{questions[index].jp}</TableCell>
-                    <TableCell>{item}</TableCell>
-                    <TableCell>{questions[index].cn}</TableCell>
-                  </TableRow>
-                ))}
+                {selectedOptions.map((item, index) => {
+                  const isCorrect = questions[index].cn === item;
+                  const rowColor = isCorrect ? "#DDFFDD" : "#FAE2E1";
+
+                  return (
+                    <TableRow
+                      key={index}
+                      style={{
+                        backgroundColor: rowColor,
+                      }}
+                    >
+                      <TableCell>
+                        {isCorrect ? (
+                          <PanoramaFishEye color="success" />
+                        ) : (
+                          <Clear color="error" />
+                        )}
+                      </TableCell>
+                      <TableCell>{questions[index].jp}</TableCell>
+                      <TableCell>{item}</TableCell>
+                      <TableCell>{questions[index].cn}</TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
